@@ -1,0 +1,15 @@
+C:\got\got\bin\Debug\net6.0\got.exe
+C:\got\got\bin\Debug\net6.0\got.deps.json
+C:\got\got\bin\Debug\net6.0\got.runtimeconfig.json
+C:\got\got\bin\Debug\net6.0\got.dll
+C:\got\got\bin\Debug\net6.0\got.pdb
+C:\got\got\obj\Debug\net6.0\got.csproj.AssemblyReference.cache
+C:\got\got\obj\Debug\net6.0\got.GeneratedMSBuildEditorConfig.editorconfig
+C:\got\got\obj\Debug\net6.0\got.AssemblyInfoInputs.cache
+C:\got\got\obj\Debug\net6.0\got.AssemblyInfo.cs
+C:\got\got\obj\Debug\net6.0\got.csproj.CoreCompileInputs.cache
+C:\got\got\obj\Debug\net6.0\got.dll
+C:\got\got\obj\Debug\net6.0\refint\got.dll
+C:\got\got\obj\Debug\net6.0\got.pdb
+C:\got\got\obj\Debug\net6.0\got.genruntimeconfig.cache
+C:\got\got\obj\Debug\net6.0\ref\got.dll
