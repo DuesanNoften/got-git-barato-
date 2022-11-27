@@ -1,10 +1,8 @@
-﻿
-using System.IO;
+﻿using System.IO;
+using System.HttpClient;
+using System.Text;
+using System.Text.Json;
 
-void Main()
-{
-
-}
 void help()
 {
     Console.WriteLine("\n   got init <name> : Inicia el repositorio con el nombre indicado");//Parcialmente implementado
@@ -36,6 +34,7 @@ void config(string name)
             System.IO.File.Create(path+ "\\config.txt");
             File.Create(path + "\\changed.txt");
             File.Create(path+"\\commit.txt");
+            File.Create(path+"\\roll.txt")
         }
         catch
         {
@@ -60,6 +59,14 @@ void init(string name)
     {
         Console.WriteLine("Ya existe un repositorio en esta carpeta");
     }
+    var json= JsonSerializer.Serialize(name);
+    var data=new StringContent(json,Encoding.UTF8," application/json");
+    var url="http://localhost:7030/post";
+    using var client = new HttpClient();
+    var response= await client.PostAsync(url,data);
+    string result=response.Content.ReadAsStringAync().Result;
+    Console.WriteLine(result);
+
 }
 
 /*
@@ -141,9 +148,41 @@ void commit(string message)
 
 }
 
+void status()
+{
+    //Aqui revisa el commit anterior y devuelve la  respuesta
+}
 
+/*
+*Funcion encargada de volver a la version de un archivo de un commit anterior
+*E: string file (nombre del archivo a cambiar), string commit (El id del commit a buscar)
+*/
+void rollback(string file, string commit)
+{
+    string path=Directory.GetCurrentDirectory()+"\\.init\\roll.txt";
+    string[] rolling=new string[2];
+    rolling[0]=file;
+    rolling[1]=commit;
+    File.WriteAllLines(path,rolling);
+}
+
+void reset()
+{
+    File.WriteLine(Directory.GetCurrentDirectory()+"\\.init\\changed.txt", "")
+}
+
+void sync(string file)
+{
+    using var client =new HttpClient();
+    var content=await client.GetStringAsync("http://localhost:7030/post");
+    Console.WriteLine(content);
+    int num=1;
+}
 
 help();
 init("hola");
 add("Hola.txt");
 commit("Se añadio el commit");
+rollback("Hola.txt","0")
+reset():
+sync();
