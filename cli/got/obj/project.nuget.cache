@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kYEJcnJ+UPFwRwiLMuSrfaIbMD7aQ8jL9B8FrkO9z4GDstYc21uyRrpQmN72HaxhkLJ24LwPgNTxHF271zMSlQ==",
+  "dgSpecHash": "qfTiJzh7tNpcTUT0dV5t4j5Uwe26L0yd5Fe5wkJ4JprQWo7TGliKVigtHZirbsFKkaawk1Z7iVxYsrF3oou+xw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\yangr\\Desktop\\Git Hub\\got-git-barato-\\cli\\got\\got.csproj",
+  "projectFilePath": "/home/duesan/got-git-barato-/cli/got/got.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

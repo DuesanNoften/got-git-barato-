@@ -1,9 +1,8 @@
 ﻿using System.IO;
-using System.HttpClient;
 using System.Text;
 using System.Text.Json;
 
-void help()
+void Help()
 {
     Console.WriteLine("\n   got init <name> : Inicia el repositorio con el nombre indicado");//Parcialmente implementado
     Console.WriteLine("\n   got help : Muestra las funciones disponibles y qué realizan");//Implementado
@@ -19,7 +18,7 @@ void help()
  * Fucion que crea las configuraciones pertinentes, auxiliar para init
  * E: string
  */
-void config(string name)
+void Config(string name)
 {
     string path = Directory.GetCurrentDirectory();
     path += "\\.init";
@@ -31,14 +30,14 @@ void config(string name)
         try
         {
             Directory.CreateDirectory(path);
-            System.IO.File.Create(path+ "\\config.txt");
+            File.Create(path+ "\\config.txt");
             File.Create(path + "\\changed.txt");
             File.Create(path+"\\commit.txt");
-            File.Create(path+"\\roll.txt")
+            File.Create(path + "\\roll.txt");
         }
         catch
         {
-
+            // ignored
         }
     } 
     
@@ -47,25 +46,33 @@ void config(string name)
 
 //Funcion que crea los archivos necesarios para utilizar el programa
 //E: string que indica el nombre del repositorio
-void init(string name)
+async void Init(string name)
 {
     string path = Directory.GetCurrentDirectory();
     path += "\\.init";
     if (!Directory.Exists(path))
     {
-        config(name);
+        Config(name);
     }
     else
     {
         Console.WriteLine("Ya existe un repositorio en esta carpeta");
     }
     var json= JsonSerializer.Serialize(name);
-    var data=new StringContent(json,Encoding.UTF8," application/json");
+    var data=new StringContent(json,Encoding.UTF8);
     var url="http://localhost:7030/post";
-    using var client = new HttpClient();
-    var response= await client.PostAsync(url,data);
-    string result=response.Content.ReadAsStringAync().Result;
-    Console.WriteLine(result);
+    try
+    {
+        using var client = new HttpClient();
+        var response= await client.PostAsync(url,data);
+        string result=response.Content.ReadAsStringAsync().Result;
+        Console.WriteLine(result);
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e);
+        throw;
+    }
 
 }
 
@@ -74,7 +81,7 @@ void init(string name)
  * E: string con la ruta del archivo
  * S: bool que indica si el archivo ya ha sido agregado o no
  */
-bool lineExist(string file, string path)
+bool LineExist(string file, string path)
 {
     bool exist=false;
     string[] lines = File.ReadAllLines(path);
@@ -94,7 +101,7 @@ bool lineExist(string file, string path)
  * E: Un string
  * S: Void
  */
-void add(string file)
+void Add(string file)
 {
     string path = Directory.GetCurrentDirectory();
     path += "\\.init\\changed.txt";
@@ -106,12 +113,12 @@ void add(string file)
         {
             if (File.Exists(path))
             {
-                System.IO.File.WriteAllLines(path, files);
+                File.WriteAllLines(path, files);
             }
         }
         catch
         {
-
+            // ignored
         }
     }
     //En caso contrario se trata de agregar solo el archivo solicitado
@@ -120,7 +127,7 @@ void add(string file)
         if (File.Exists(Directory.GetCurrentDirectory() + "\\" + file))
         {
             //Se verifica que el archivo no haya sido agregado anteriormente
-            if (!lineExist(Directory.GetCurrentDirectory() + "\\" + file,path))
+            if (!LineExist(Directory.GetCurrentDirectory() + "\\" + file,path))
             {
                 File.AppendAllText(path, Directory.GetCurrentDirectory() + "\\" + file + "\n");
             }
@@ -130,13 +137,13 @@ void add(string file)
             }
         }           
         else
-            {
+        {
             Console.WriteLine("El archivo especificado no existe");
-            }
+        }
     }
 }
 
-void commit(string message)
+void Commit(string message)
 {
     string path = Directory.GetCurrentDirectory();
     string changepath = path + "\\.init\\changed.txt";
@@ -148,16 +155,16 @@ void commit(string message)
 
 }
 
-void status()
+void Status()
 {
-    //Aqui revisa el commit anterior y devuelve la  respuesta
+    //Aquí revisa el commit anterior y devuelve la  respuesta
 }
 
 /*
 *Funcion encargada de volver a la version de un archivo de un commit anterior
 *E: string file (nombre del archivo a cambiar), string commit (El id del commit a buscar)
 */
-void rollback(string file, string commit)
+void Rollback(string file, string commit)
 {
     string path=Directory.GetCurrentDirectory()+"\\.init\\roll.txt";
     string[] rolling=new string[2];
@@ -166,23 +173,26 @@ void rollback(string file, string commit)
     File.WriteAllLines(path,rolling);
 }
 
-void reset()
+void Reset()
 {
-    File.WriteLine(Directory.GetCurrentDirectory()+"\\.init\\changed.txt", "")
+    string path = Directory.GetCurrentDirectory() + "\\.init\\changed.txt";
+    string[] delete = new string[2];
+    delete[0] = "";
+    delete[1] = "";
+    File.WriteAllLines(path, delete);
 }
 
-void sync(string file)
+async void Sync(string file)
 {
     using var client =new HttpClient();
     var content=await client.GetStringAsync("http://localhost:7030/post");
     Console.WriteLine(content);
-    int num=1;
 }
 
-help();
-init("hola");
-add("Hola.txt");
-commit("Se añadio el commit");
-rollback("Hola.txt","0")
-reset():
-sync();
+Help();
+Init("hola");
+Add("Hola.txt");
+Commit("Se añadio el commit");
+Rollback("Hola.txt", "0");
+Reset();
+Sync("Hola.txt");
