@@ -60,6 +60,7 @@ async void Init(string name)
     }
     var json= JsonSerializer.Serialize(name);
     var data=new StringContent(json,Encoding.UTF8);
+    //Hay que colocar la url apropiada
     var url="http://localhost:7030/post";
     try
     {
@@ -143,7 +144,7 @@ void Add(string file)
     }
 }
 
-void Commit(string message)
+async void Commit(string message)
 {
     string path = Directory.GetCurrentDirectory();
     string changepath = path + "\\.init\\changed.txt";
@@ -152,34 +153,81 @@ void Commit(string message)
     commited[0] = message;
     commited[1] = changepath;
     File.WriteAllLines(commpath, commited);
-
+    
+    //mandando los archivos
+    var client = new HttpClient();
+    var url="http://localhost:7030/post";
+    string files = Directory.GetCurrentDirectory() + "\\.init\\changed.txt";
+    string[] rutas = File.ReadAllLines(files);
+    foreach (string z in rutas)
+    {
+        string nombreArchivo = Path.GetFileName(z);
+        using var requestContent = new MultipartFormDataContent();
+        using var fileStream = File.OpenRead(z);
+        requestContent.Add(new StreamContent(fileStream),"archivo",nombreArchivo);
+        //Hay que colocar la url apropiada
+        await client.PostAsync(url, requestContent);
+    }
+    ;
 }
 
 void Status()
 {
-    //Aquí revisa el commit anterior y devuelve la  respuesta
+    //Esto esta complicado
 }
 
 /*
 *Funcion encargada de volver a la version de un archivo de un commit anterior
 *E: string file (nombre del archivo a cambiar), string commit (El id del commit a buscar)
 */
-void Rollback(string file, string commit)
+async Task Rollback(string file, string commit)
 {
     string path=Directory.GetCurrentDirectory()+"\\.init\\roll.txt";
     string[] rolling=new string[2];
     rolling[0]=file;
     rolling[1]=commit;
     File.WriteAllLines(path,rolling);
+    var json= JsonSerializer.Serialize(commit);
+    var data=new StringContent(json,Encoding.UTF8);
+    var url="http://localhost:7030/post";
+    try
+    {
+        using var client = new HttpClient();
+        //Hay que colocar la url apropiada
+        var response= await client.GetAsync(url+"/"+commit);
+        string result=response.Content.ReadAsStringAsync().Result;
+        Console.WriteLine(result);
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e);
+        throw;
+    }
 }
 
-void Reset()
+async Task Reset(string file)
 {
     string path = Directory.GetCurrentDirectory() + "\\.init\\changed.txt";
     string[] delete = new string[2];
     delete[0] = "";
     delete[1] = "";
     File.WriteAllLines(path, delete);
+    var json= JsonSerializer.Serialize(file);
+    var data=new StringContent(json,Encoding.UTF8);
+    var url="http://localhost:7030";
+    try
+    {
+        using var client = new HttpClient();
+        //Hay que colocar la url apropiada
+        var response= await client.GetAsync(url);
+        string result=response.Content.ReadAsStringAsync().Result;
+        Console.WriteLine(result);
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e);
+        throw;
+    }
 }
 
 async void Sync(string file)
@@ -194,5 +242,5 @@ Init("hola");
 Add("Hola.txt");
 Commit("Se añadio el commit");
 Rollback("Hola.txt", "0");
-Reset();
+Reset("Hola.txt");
 Sync("Hola.txt");
