@@ -6,38 +6,23 @@ namespace Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Rollback : ControllerBase
+    public class RollBack : ControllerBase
     {
-        // GET: api/<ValuesController2>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<ValuesController2>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public string Get(string id)
         {
-            return "value";
+            return id;
         }
 
-        // POST api/<ValuesController2>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        public string Post(RollBackJ rollbackJ)
         {
-        }
-
-        // PUT api/<ValuesController2>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<ValuesController2>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return rollbackJ.commit;
         }
     }
+}
+
+public class RollBackJ
+{
+    public string commit { get; set; }
+    public string document { get; set; }
 }

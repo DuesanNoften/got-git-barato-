@@ -28,3 +28,18 @@ C:/got/got/obj/Debug/net6.0/ref/got.dll
 /home/duesan/got-git-barato-/cli/got/bin/Debug/net6.0/got.pdb
 /home/duesan/got-git-barato-/cli/got/obj/Debug/net6.0/got.genruntimeconfig.cache
 /home/duesan/got-git-barato-/cli/got/obj/Debug/net6.0/ref/got.dll
+C:\Users\yangr\Desktop\Git Hub\got-git-barato-\cli\got\bin\Debug\net6.0\got.exe
+C:\Users\yangr\Desktop\Git Hub\got-git-barato-\cli\got\bin\Debug\net6.0\got.deps.json
+C:\Users\yangr\Desktop\Git Hub\got-git-barato-\cli\got\bin\Debug\net6.0\got.runtimeconfig.json
+C:\Users\yangr\Desktop\Git Hub\got-git-barato-\cli\got\bin\Debug\net6.0\got.dll
+C:\Users\yangr\Desktop\Git Hub\got-git-barato-\cli\got\bin\Debug\net6.0\got.pdb
+C:\Users\yangr\Desktop\Git Hub\got-git-barato-\cli\got\obj\Debug\net6.0\got.csproj.AssemblyReference.cache
+C:\Users\yangr\Desktop\Git Hub\got-git-barato-\cli\got\obj\Debug\net6.0\got.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\yangr\Desktop\Git Hub\got-git-barato-\cli\got\obj\Debug\net6.0\got.AssemblyInfoInputs.cache
+C:\Users\yangr\Desktop\Git Hub\got-git-barato-\cli\got\obj\Debug\net6.0\got.AssemblyInfo.cs
+C:\Users\yangr\Desktop\Git Hub\got-git-barato-\cli\got\obj\Debug\net6.0\got.csproj.CoreCompileInputs.cache
+C:\Users\yangr\Desktop\Git Hub\got-git-barato-\cli\got\obj\Debug\net6.0\got.dll
+C:\Users\yangr\Desktop\Git Hub\got-git-barato-\cli\got\obj\Debug\net6.0\refint\got.dll
+C:\Users\yangr\Desktop\Git Hub\got-git-barato-\cli\got\obj\Debug\net6.0\got.pdb
+C:\Users\yangr\Desktop\Git Hub\got-git-barato-\cli\got\obj\Debug\net6.0\got.genruntimeconfig.cache
+C:\Users\yangr\Desktop\Git Hub\got-git-barato-\cli\got\obj\Debug\net6.0\ref\got.dll

@@ -12,5 +12,10 @@ namespace Server.Controllers
         {
             return "g";
         }
+
+        public string Post(RollBackJ rollbackJ)
+        {
+            return rollbackJ.commit;
+        }
     }
 }
