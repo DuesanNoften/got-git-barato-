@@ -1,6 +1,10 @@
 ﻿
 using System.IO;
 
+void Main()
+{
+
+}
 void help()
 {
     Console.WriteLine("\n   got init <name> : Inicia el repositorio con el nombre indicado");//Parcialmente implementado
