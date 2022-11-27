@@ -11,18 +11,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Server.Controllers
 {
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
     [ApiController]
-    public class Help : ControllerBase
+    public class Init : ControllerBase
     {
-        [HttpGet("Got/{id}")]
-        public string Get( string id)
+        [HttpGet("Init/{id}")]
+        public string Get(string id)
         {
-            //id switch{
-                //case
-            //}
-            string i = "a";
-            return i;
+            return id;
         }
     }
 }
